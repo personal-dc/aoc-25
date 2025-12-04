@@ -49,5 +49,5 @@ def day_4_2():
     return total_removed
 
 if __name__ == '__main__':
-    # print(day_4_1())
+    print(day_4_1())
     print(day_4_2())
