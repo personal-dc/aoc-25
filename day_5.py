@@ -40,23 +40,17 @@ def day_5_2():
     ranges.sort(key = lambda item: item[0])
     new_ranges = []
 
-    for lo, hi in ranges:
-        found_range = False
-        for i in range(len(new_ranges)):
-            nlo, nhi = new_ranges[i]
-            if nlo<=lo<=nhi:
-                new_ranges[i] = (nlo, max(hi, nhi))
-                found_range = True
-                break
-            if nlo<=hi<=nhi:
-                new_ranges[i] = (min(lo, nlo), nhi)
-                found_range = True
-                break
-
-        if not found_range:
-            new_ranges.append((lo, hi))
-
-    return sum(map(lambda r: r[1]-r[0]+1, new_ranges))
+    curr_lo, curr_hi = ranges[0]
+    for i in range(1, len(ranges)):
+        lo, hi = ranges[i]
+        if curr_lo <= lo <= curr_hi:
+            curr_hi = max(curr_hi, hi)
+        else:
+            new_ranges.append((curr_lo, curr_hi))
+            curr_lo, curr_hi = lo, hi
+        
+    if new_ranges[-1] != (lo, hi): new_ranges.append((lo, hi))
+    return sum(map(lambda r: r[1]-r[0]+1, new_ranges)) 
     
 
 
